@@ -16,6 +16,7 @@ class ReportScreen extends StatefulWidget {
 class _ReportScreenState extends State<ReportScreen> {
   String CurrentCarInfoKey = "CurrentCarInfo";
   List<String> _notFoundProperties = [];
+  bool loaded = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -25,6 +26,7 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.green,
         elevation: 0,
@@ -34,44 +36,24 @@ class _ReportScreenState extends State<ReportScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20, left: 8, right: 8),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          Text(
-                            "Propiedad",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          )
-                        ],
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width * .6),
-                      Column(
-                        children: const [
-                          Text(
-                            "Valor",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              
               FutureBuilder<CarInfo>(
                 future: loadInfo(),
+
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return  Column(
+                      children: [
+                        Icon(
+                          Icons.search_rounded,
+                          color: Colors.green.withOpacity(.5),
+                          size: 85,
+                        ),
+                        Text("Reading Information"),
+                        SizedBox(height: 10,),
+                        LinearProgressIndicator(color: Colors.green,backgroundColor: Colors.white,),
+                      ],
+                    );
                   }
                   if (snapshot.hasError) {
                     return const Text("Error");
@@ -79,6 +61,8 @@ class _ReportScreenState extends State<ReportScreen> {
 
                   if (snapshot.connectionState == ConnectionState.done &&
                       snapshot.hasData) {
+                        
+                        // loaded = true;
                     return Column(
                       children: [
                         // DataTable(
@@ -107,6 +91,52 @@ class _ReportScreenState extends State<ReportScreen> {
                         //               backgroundColor: Colors.green,
                         //               fontWeight: FontWeight.bold))),
                         // ], rows: [
+                          Padding(
+                          padding:
+                              const EdgeInsets.only(top: 20, left: 8, right: 8),
+                          child: Container(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: const [
+                                          Text(
+                                            "Propiedad",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              .5),
+                                      Column(
+                                        children: const [
+                                          Text(
+                                            "Valor",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  )
+                          ),
+                        ),
                         _buildProperty(
                             "Marca", snapshot.data!.results![0].make!),
                         _buildProperty(
@@ -421,8 +451,8 @@ class _ReportScreenState extends State<ReportScreen> {
                         _buildProperty(
                             "windows", snapshot.data!.results![0].windows!),
                         // ]),
-
-                        const Text("Not Found Properties"),
+SizedBox(height: 20,),
+                         Text("Not Found Properties"),
                         Container(
                           height: MediaQuery.of(context).size.height * .5,
                           width: MediaQuery.of(context).size.width,

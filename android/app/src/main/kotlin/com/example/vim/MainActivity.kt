@@ -1,4 +1,4 @@
-package com.example.vim
+package com.ronytuquizz.vimReader
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -46,20 +46,49 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Welcome, lets get all information from your car."),
+            // Icon(
+            //   Icons.car_rental,
+            //   color: Colors.green.withOpacity(.5),
+            //   size: 205,
+            // ),
+            Image.asset('assets/car.png'),
+            SizedBox(height: MediaQuery.of(context).size.height/30,),
+            // Text("Welcome, lets get all information from your car.",style: TextStyle(),),
             SizedBox(
               height: 20,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
+            GestureDetector(
+              onTap: (){
+                Navigator.pushNamedAndRemoveUntil(
                       context, ColectInfoScreen.routeName, (route) => false);
-                },
-                child: Text("Start Reading"))
+              },
+              child: Container(
+                padding: EdgeInsets.only(bottom: 10),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(.2),
+                  borderRadius: BorderRadius.circular(20)
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: Text("Start Reading",style: TextStyle(color: Colors.green,fontSize: 28),),
+                ),
+              ),
+            )
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.pushNamedAndRemoveUntil(
+            //           context, ColectInfoScreen.routeName, (route) => false);
+            //     },
+            //     child: Text("Start Reading"))
           ],
         ),
       ),
