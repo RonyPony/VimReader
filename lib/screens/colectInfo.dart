@@ -15,8 +15,8 @@ class ColectInfoScreen extends StatefulWidget {
 
 class _colectInfoState extends State<ColectInfoScreen> {
   bool _validVim = false;
-  TextEditingController _vim = TextEditingController(text: "2HGFA16537H507451");
-  TextEditingController _year = TextEditingController(text: "2007");
+  TextEditingController _vim = TextEditingController();//(text: "2HGFA16537H507451");
+  TextEditingController _year = TextEditingController();//(text: "2007");
 
   bool _infoColected = false;
   String CurrentCarInfoKey = "CurrentCarInfo";
